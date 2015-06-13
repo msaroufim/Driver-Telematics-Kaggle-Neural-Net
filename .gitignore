@@ -1,9 +1,10 @@
-# Created by https://www.gitignore.ioj
-
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+
+# DS store garbage
+*.DS_Store
 
 # C extensions
 *.so
@@ -60,6 +61,8 @@ docs/_build/
 target/
 
 #Data
+*.csv
+*.zip
 pylearn2/
 data/
 cuda-repo-ubuntu1204_5.5-0_amd64.deb

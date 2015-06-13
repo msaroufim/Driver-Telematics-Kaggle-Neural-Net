@@ -25,3 +25,7 @@ python configuration-testing/gpu-check.py
 ##Idea 1: Encoding a trip
 
 A trip is given to us as a sequence of  ```x,y``` pair of coordinates this describes a path in a 2D plane. It is therefore possible to turn our text data into image data and feed it into a convolutional neural network.
+
+We do this using the networkx library
+
+[!Networkx path](images/networkxpath.png)

@@ -39,3 +39,6 @@ device = gpu0
 
 [nvcc]
 fastmath = True' > .theanorc
+
+
+sudo pip install networkx
