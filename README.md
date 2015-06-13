@@ -28,4 +28,4 @@ A trip is given to us as a sequence of  ```x,y``` pair of coordinates this descr
 
 We do this using the networkx library
 
-[!Networkx path](images/networkxpath.png)
+![Networkx path](images/networkxpath.png)
