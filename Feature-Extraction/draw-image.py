@@ -23,14 +23,24 @@ def coord_to_graph_image(file_name):
     plt.figure()
     nx.draw(G,pos)
     plt.show()
-    print "Drawed node"
+    print "Drew node"
 
+def coord_to_line_plot(file_name):
+    with open(file_name) as f:
+        print "Reading driver on route %s" %(file_name)
+        next(f)
+        coord_list = [line.split(",") for line in f]
+
+    plt.figure()
+    plt.plot(*zip(*coord_list))
+    plt.show()
 
 if __name__ == "__main__":
     #print all images for driver 1
-    for file_name in os.listdir("1"):
+    for file_name in os.listdir("../1"):
         print file_name
-        coord_to_graph_image("1/" + file_name)
+        #coord_to_graph_image("1/" + file_name)
+        coord_to_line_plot("../1/" + file_name)
 
 
     """
