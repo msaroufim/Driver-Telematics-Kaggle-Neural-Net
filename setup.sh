@@ -21,7 +21,7 @@ cd ..
 echo "export PATH=/usr/local/cuda-5.5/bin:$PATH" >> .bashrc
 echo "export LD_LIBRARY_PATH=/usr/local/cuda-5.5/lib64:$LD_LIBRARY_PATH" >> .bashrc
 echo "export PYLEARN2_DATA_PATH=/home/ubuntu/data" >> .bashrc
-source .bashrc	
+source .bashrc
 mkdir -p data/mnist/
 cd data/mnist/
 wget http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
@@ -42,3 +42,7 @@ fastmath = True' > .theanorc
 
 
 sudo pip install networkx
+git clone https://github.com/fchollet/keras.git
+cd keras
+sudo python setup.py install
+cd ..

@@ -2,6 +2,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*._*.py
 
 # DS store garbage
 *.DS_Store
