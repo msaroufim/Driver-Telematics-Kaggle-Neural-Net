@@ -1,5 +1,4 @@
-#!/usr/bin/python
-
+#!/usr/bin/env python
 
 """
 Take folder containing a folder of drivers and for each driver route turn
@@ -12,10 +11,13 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import os
 import sys
-import Image
+from PIL import Image
 import pdb
+import random
 
 def coord_to_graph_image(file_name):
+
+
     G = nx.Graph()
     with open(file_name) as f:
         print "Reading driver_name on route %s" %(file_name)
@@ -30,15 +32,14 @@ def coord_to_graph_image(file_name):
 
     plt.figure()
     nx.draw(G,pos)
-    plt.show()
+    #plt.show()
 
     print "displaying graph" + file_name
-    pdb.set_trace()
+    #pdb.set_trace()
     image_name = file_name.replace("csv", "png")
     plt.savefig(image_name,bbox_inches='tight')
     print "saved graph"
-
-
+    print "image name:" + image_name
     return image_name
 
 def coord_to_line_plot(file_name):
@@ -54,7 +55,7 @@ def coord_to_line_plot(file_name):
 
 
 
-def resize_image_save(width=25,height=25,infile=""):
+def resize_image_save(infile,width,height):
     """
     Given a list of image names, resize them to width x height in pixels
     ANTIALIAS to preserve quality of the image
@@ -62,18 +63,14 @@ def resize_image_save(width=25,height=25,infile=""):
     """
     size = width,height
 
-    try:
-        pdb.set_trace()
-        print "resize_image_save---infile: " + infile
-        im = Image.open(infile)
-        im.thumbnail(size,Image.ANTIALIAS)
-        resized_image_name = infile.replace(".png", "_small.png")
-        im.save(resized_image_name,"png")
-        return resized_image_name
+    #pdb.set_trace()
+    print "resize_image_save---infile: " + infile
+    im = Image.open(infile)
+    im.thumbnail(size,Image.ANTIALIAS)
+    resized_image_name = infile.replace(".png", "_small.png")
+    im.save(resized_image_name,"png")
 
-    except IOError:
-        print "cannot create thumbnail for '%s'" % infile
-
+    return resized_image_name
 
 def next_file():
     """
@@ -109,9 +106,31 @@ def find_largest_x_y():
     return x,y
 
 
+
+def main():
+    dataset = []
+    for driver in os.listdir("../drivers"):
+        path = "../drivers/" + driver
+        for route_number in os.listdir(path):
+
+            route_filename = path + '/' + route_number
+            if route_filename.endswith(".png"):
+                continue
+            image_name = coord_to_graph_image(route_filename)
+            print "Image name is: " + image_name
+
+            resized_image_name = resize_image_save( coord_to_graph_image(path + '/' + route_number) ,25,25)
+            dataset.append([resized_image_name,driver])
+            #random.shuffle(dataset) will shuffle it properly in place so no return value
+    print '-'*50
+    print dataset
+    return dataset
+
+
 if __name__ == "__main__":
-    file_name  = "../1/1.csv"
-    image_name = coord_to_graph_image(file_name)
+    main()
+    # file_name  = "../1/1.csv"
+    # image_name = coord_to_graph_image(file_name)
     # print "created larger image: " + image_name
     # resized_image_name = resize_image_save(infile = image_name)
     # print "converted to smaller image: " + resized_image_name
@@ -125,7 +144,5 @@ if __name__ == "__main__":
 
 
     """
-    for driver in os.listdir("drivers"):
-        for route_number in os.listdir(driver):
-            coord_to_graph_image("drivers/" + driver + route_number)
+
     """
