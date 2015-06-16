@@ -71,16 +71,6 @@ def resize_image_save(infile,width,height):
 
     return resized_image_name
 
-def next_file():
-    """
-    Idea for refactoring, does not honestly save that much typing
-    """
-    for driver in os.listdir("drivers"):
-        for route_number in os.listdir(driver):
-            file_name = "drivers/" + driver + route_number
-            yield file_name
-
-
 
 
 def main(driver):
@@ -111,6 +101,9 @@ if __name__ == "__main__":
     for i in range(1,NUM_DRIVERS):
         p = multiprocessing.Process(target=main,args=(i,))
         p.start()
+
+
+
     # file_name  = "../1/1.csv"
     # image_name = coord_to_graph_image(file_name)
     # print "created larger image: " + image_name
@@ -159,4 +152,14 @@ if __name__ == "__main__":
 
 #     print "the maximal values are" %(x,y)
 #     return x,y
+
+
+# def next_file():
+#     """
+#     Idea for refactoring, does not honestly save that much typing
+#     """
+#     for driver in os.listdir("drivers"):
+#         for route_number in os.listdir(driver):
+#             file_name = "drivers/" + driver + route_number
+#             yield file_name
 
