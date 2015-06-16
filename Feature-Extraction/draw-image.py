@@ -42,15 +42,7 @@ def coord_to_graph_image(file_name):
     print "image name:" + image_name
     return image_name
 
-def coord_to_line_plot(file_name):
-    with open(file_name) as f:
-        print "Reading driver on route %s" %(file_name)
-        next(f)
-        coord_list = [line.split(",") for line in f]
 
-    plt.figure()
-    plt.plot(*zip(*coord_list))
-    plt.show()
 
 
 
@@ -67,7 +59,13 @@ def resize_image_save(infile,width,height):
     print "resize_image_save---infile: " + infile
     im = Image.open(infile)
     im.thumbnail(size,Image.ANTIALIAS)
-    resized_image_name = infile.replace(".png", "_small.png")
+    resized_image_name = infile.replace("drivers","thumbnail"+str(height))
+    #resized_image_name = infile.replace(".png", "_small.png")
+
+    if not os.path.exists(os.path.dirname(resized_image_name)):
+        os.makedirs(os.path.dirname(resized_image_name))
+
+
     im.save(resized_image_name,"png")
 
     return resized_image_name
@@ -109,16 +107,19 @@ def find_largest_x_y():
 
 def main():
     dataset = []
-    for driver in os.listdir("../drivers"):
-        path = "../drivers/" + driver
+    data_location = "/Volumes/BIG/drivers/"
+    for driver in os.listdir(data_location):
+        path = data_location + driver
         for route_number in os.listdir(path):
 
             route_filename = path + '/' + route_number
             if route_filename.endswith(".png"):
                 continue
-            image_name = coord_to_graph_image(route_filename)
-            print "Image name is: " + image_name
+            #image_name = coord_to_graph_image(route_filename)
+            #print "Image name is: " + image_name
 
+
+            #CHANGE IF NEEDED TO DIFFERENT SIZE, TRY TO KEEP IT SQUARE
             resized_image_name = resize_image_save( coord_to_graph_image(path + '/' + route_number) ,25,25)
             dataset.append([resized_image_name,driver])
             #random.shuffle(dataset) will shuffle it properly in place so no return value
@@ -143,6 +144,12 @@ if __name__ == "__main__":
 
 
 
-    """
+    # def coord_to_line_plot(file_name):
+    # with open(file_name) as f:
+    #     print "Reading driver on route %s" %(file_name)
+    #     next(f)
+    #     coord_list = [line.split(",") for line in f]
 
-    """
+    # plt.figure()
+    # plt.plot(*zip(*coord_list))
+    # plt.show()
