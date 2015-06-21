@@ -92,7 +92,6 @@ def main(driver):
         dataset.append([resized_image_name,driver])
         #random.shuffle(dataset) will shuffle it properly in place so no return value
     print '-'*50
-    print dataset
     return dataset
 
 
